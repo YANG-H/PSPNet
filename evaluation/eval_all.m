@@ -7,7 +7,7 @@ modify variable 'gpu_id_array' if needed.
 close all; clc; clear;
 addpath('../matlab'); %add matcaffe path
 addpath('visualizationCode');
-data_name = 'ADE20K'; %set to 'VOC2012' or 'cityscapes' for relevant datasets
+data_name = 'cityscapes'; %set to 'VOC2012' or 'cityscapes' for relevant datasets
 
 switch data_name
     case 'ADE20K'
@@ -39,9 +39,12 @@ switch data_name
     case 'cityscapes'
         isVal = true;
         step = 125; %125=500/4
-        data_root = '/data2/hszhao/dataset/cityscapes';
-        eval_list = 'list/cityscapes_val.txt';
-        save_root = 'mc_result/cityscapes/val/pspnet101_713/';
+        % data_root = '/data2/hszhao/dataset/cityscapes';
+        data_root = '/home/yanghao/Pictures'
+        % eval_list = 'list/cityscapes_val.txt';
+        eval_list = 'cityscapes_adhoc.txt'
+        % save_root = 'mc_result/cityscapes/val/pspnet101_713/';
+        save_root = 'mc_result/cityscapes_adhoc/pspnet101_713/';
         model_weights = 'model/pspnet101_cityscapes.caffemodel';
         model_deploy = 'prototxt/pspnet101_cityscapes_713.prototxt';
         fea_cha = 19;
@@ -63,7 +66,7 @@ mean_b = 103.939;
 
 acc = double.empty;
 iou = double.empty;
-gpu_id_array = [0:3]; %multi-GPUs for parfor testing, if number of GPUs is changed, remember to change the variable 'step'
+gpu_id_array = [0]; %multi-GPUs for parfor testing, if number of GPUs is changed, remember to change the variable 'step'
 runID = 1;
 gpu_num = size(gpu_id_array,2);
 index_array = [(runID-1)*gpu_num+1:runID*gpu_num];

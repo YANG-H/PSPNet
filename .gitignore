@@ -2,3 +2,6 @@ build
 .build_release
 .build_debug
 *.mexa64
+
+evaluation/model/*
+evaluation/matlab.log
